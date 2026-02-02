@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>競馬 GO / NO-GO 判定</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 12px;
+    }
+    h1 {
+      font-size: 20px;
+      text-align: center;
+    }
+    .item {
+      background: #fff;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    select {
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .go {
+      background: #d4edda;
+      color: #155724;
+    }
+    .nogo {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .rule {
+      font-size: 13px;
+      color: #555;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🏇 GO / NO-GO 判定</h1>
+
+<div class="item">前走4角5番手以内
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div class="item">逃げ or 先行型
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div class="item">同距離 or 距離短縮
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div class="item">コース実績あり
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div class="item">騎手継続 or 明確強化
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div class="item">馬体重 ±10kg以内
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div class="item">人気1〜5番
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div class="item">単勝3〜8倍
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div class="item">休み明け2走目以内
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div class="item">前で運べるイメージ
+  <select onchange="calc()">
+    <option value="0">×</option>
+    <option value="1">○</option>
+  </select>
+</div>
+
+<div id="result" class="result nogo">
+  判定：NO-GO（見送り）
+</div>
+
+<div class="rule">
+  ○7個以上 → 単勝1点でGO<br>
+  迷ったら× / 追い金禁止
+</div>
+
+<script>
+function calc() {
+  const selects = document.querySelectorAll("select");
+  let score = 0;
+  selects.forEach(s => score += Number(s.value));
+
+  const result = document.getElementById("result");
+  if (score >= 7) {
+    result.textContent = "判定：GO（買う）  " + score + "/10";
+    result.className = "result go";
+  } else {
+    result.textContent = "判定：NO-GO（見送り）  " + score + "/10";
+    result.className = "result nogo";
+  }
+}
+</script>
+
+</body>
+</html>
