@@ -414,7 +414,9 @@
   }
 
   function saveRace(){
-    const raceName = document.getElementById("raceName").value.trim();
+    const place = document.getElementById("racePlace").value;
+const raceNo = document.getElementById("raceNo").value;
+const raceName = `${place}${raceNo}R`;
     const raceDate = document.getElementById("raceDate").value;
     if(!raceName){
       alert("レース名を入れてください");
