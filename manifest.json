@@ -1,0 +1,8 @@
+{
+  "name": "GO / NO-GO 判定",
+  "short_name": "GO/NO-GO",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2e7d32"
+}
