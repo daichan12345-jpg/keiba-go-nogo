@@ -689,6 +689,14 @@ function lockInputs(){
     showReviewPopup();
   }
 })();
+function debugResetReview(){
+  localStorage.removeItem(ASKED_KEY);
+  localStorage.removeItem(PAID_KEY);
+  localStorage.removeItem(LOCK_KEY);
+  // install日もリセットしたいなら次も
+  // localStorage.removeItem(INSTALL_KEY);
+  alert("レビュー表示フラグをリセットしました");
+}
 </script>
 </body>
 </html>
