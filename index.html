@@ -283,7 +283,22 @@
     <div class="divider"></div>
     <div class="list" id="historyList"></div>
   </div>
-
+<!-- ===== 役に立った？ポップアップ ===== -->
+<div class="modalOverlay" id="reviewOverlay">
+  <div class="modal">
+    <h3>このアプリ、役に立ちましたか？</h3>
+    <p>
+      2週間使ってみてどうでしたか？<br>
+      もし「判断の振り返りに役立った」と感じたら、買い切りでこのまま使えます。
+    </p>
+    <div class="modalBtns">
+      <button onclick="reviewContinue()">役に立った → 続けたい</button>
+      <button class="secondary" onclick="reviewLater()">まだ迷っている</button>
+      <button class="danger" onclick="reviewNoThanks()">今回は使わない</button>
+    </div>
+    <div class="sub">※ 過去の記録は引き続き見られます</div>
+  </div>
+</div>
 <script>
   // ====== 設定 ======
   const THRESHOLD = 7; // 7以上でGO
