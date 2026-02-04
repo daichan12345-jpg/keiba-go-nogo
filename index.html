@@ -551,6 +551,25 @@ const raceName = `${place}${raceNo}R`;
       return String(Date.now()) + "_" + Math.random().toString(16).slice(2);
     }
   }
+  // ===== 収支計算 =====
+function updateProfit(){
+  const stake = Number(document.getElementById("stake")?.value) || 0;
+  const payout = Number(document.getElementById("payout")?.value) || 0;
+  const profit = payout - stake;
+
+  const box = document.getElementById("profitBox");
+  if(!box) return;
+
+  box.textContent = `収支：${profit}円`;
+  box.className = "result " + (profit >= 0 ? "go" : "nogo");
+}
+
+// 入力されたら自動で再計算
+document.getElementById("stake")?.addEventListener("input", updateProfit);
+document.getElementById("payout")?.addEventListener("input", updateProfit);
+
+// 初期表示
+updateProfit();
 </script>
 </body>
 </html>
