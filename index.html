@@ -614,6 +614,82 @@ document.getElementById("payout")?.addEventListener("input", updateProfit);
 
 // 初期表示
 updateProfit();
+// ===== 役に立った？（14日後） =====
+const FREE_DAYS = 14;
+const INSTALL_KEY = "keiba_installDate_v1";
+const ASKED_KEY   = "keiba_reviewAsked_v1";
+const PAID_KEY    = "keiba_isPaid_v1";
+const LOCK_KEY    = "keiba_inputLocked_v1";
+
+// 初回起動日を保存
+(function ensureInstallDate(){
+  if(!localStorage.getItem(INSTALL_KEY)){
+    localStorage.setItem(INSTALL_KEY, new Date().toISOString());
+  }
+})();
+
+function daysSinceInstall(){
+  const raw = localStorage.getItem(INSTALL_KEY);
+  if(!raw) return 0;
+  const start = new Date(raw).getTime();
+  const now = Date.now();
+  return Math.floor((now - start) / (1000*60*60*24));
+}
+
+function shouldShowReview(){
+  if(localStorage.getItem(PAID_KEY) === "true") return false;
+  if(localStorage.getItem(ASKED_KEY) === "true") return false;
+  return daysSinceInstall() >= FREE_DAYS;
+}
+
+function showReviewPopup(){
+  const overlay = document.getElementById("reviewOverlay");
+  if(overlay) overlay.style.display = "flex";
+}
+
+function hideReviewPopup(){
+  const overlay = document.getElementById("reviewOverlay");
+  if(overlay) overlay.style.display = "none";
+}
+
+// ボタン動作
+function reviewContinue(){
+  localStorage.setItem(ASKED_KEY, "true");
+  // 仮の販売URL（あとで差し替え）
+  window.open("https://booth.pm/", "_blank");
+  hideReviewPopup();
+}
+
+function reviewLater(){
+  hideReviewPopup();
+}
+
+function reviewNoThanks(){
+  localStorage.setItem(ASKED_KEY, "true");
+  localStorage.setItem(LOCK_KEY, "true");
+  hideReviewPopup();
+  lockInputs();
+}
+
+// 入力ロック（閲覧のみ）
+function lockInputs(){
+  document.querySelectorAll("input, textarea, select, button").forEach(el=>{
+    if(el.textContent?.includes("JSON")) return;
+    if(el.textContent?.includes("履歴")) return;
+    el.disabled = true;
+  });
+}
+
+// 起動時チェック
+(function bootReview(){
+  if(localStorage.getItem(LOCK_KEY) === "true"){
+    lockInputs();
+    return;
+  }
+  if(shouldShowReview()){
+    showReviewPopup();
+  }
+})();
 </script>
 </body>
 </html>
