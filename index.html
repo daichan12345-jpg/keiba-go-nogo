@@ -220,7 +220,23 @@
 
     <div class="muted">レース判断メモ（任意）</div>
     <textarea id="raceMemo" rows="3" placeholder="例：GOが2頭なら単勝、1頭なら見送り など"></textarea>
+    <div class="divider"></div>
 
+<div class="row">
+  <div style="flex:1; min-width:160px;">
+    <div class="muted">投資金額（円）</div>
+    <input id="stake" type="number" inputmode="numeric" placeholder="例：5000" />
+  </div>
+
+  <div style="flex:1; min-width:160px;">
+    <div class="muted">払戻金（円）</div>
+    <input id="payout" type="number" inputmode="numeric" placeholder="例：0（結果後に入力）" />
+  </div>
+</div>
+
+<div class="result nogo" id="profitBox" style="margin-top:10px;">
+  収支：0円
+</div>
     <div class="row" style="margin-top:10px;">
       <button onclick="saveRace()">このレースを保存（履歴へ）</button>
     </div>
