@@ -570,6 +570,12 @@ document.getElementById("payout")?.addEventListener("input", updateProfit);
 
 // 初期表示
 updateProfit();
+// 入力されたら自動で再計算
+document.getElementById("stake")?.addEventListener("input", updateProfit);
+document.getElementById("payout")?.addEventListener("input", updateProfit);
+
+// 初期表示
+updateProfit();
 </script>
 </body>
 </html>
