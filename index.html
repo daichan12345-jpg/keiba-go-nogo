@@ -282,6 +282,46 @@
     <div class="divider"></div>
     <div class="list" id="historyList"></div>
   </div>
+  // ===== 買い切り解除（解除キー方式） =====
+// ※まずは「1つのキー」だけで動く版（売れたら増やす）
+const VALID_UNLOCK_KEYS = [
+  "UMA-2026-ABCD"
+];
+
+function showUnlock(){
+  const overlay = document.getElementById("unlockOverlay");
+  if(overlay) overlay.style.display = "flex";
+}
+
+function hideUnlock(){
+  const overlay = document.getElementById("unlockOverlay");
+  if(overlay) overlay.style.display = "none";
+}
+
+function submitUnlockKey(){
+  const input = document.getElementById("unlockKeyInput");
+  const key = (input?.value || "").trim();
+
+  if(!key){
+    alert("解除キーを入力してください");
+    return;
+  }
+
+  const ok = VALID_UNLOCK_KEYS.includes(key);
+  if(!ok){
+    alert("キーが違います。購入後に届いたキーを確認してください");
+    return;
+  }
+
+  // 解除：課金済みにする
+  localStorage.setItem(PAID_KEY, "true");
+  localStorage.removeItem(ASKED_KEY);   // もう聞かない
+  localStorage.removeItem(LOCK_KEY);    // ロック解除
+
+  alert("解除しました！ありがとうございます。");
+  hideUnlock();
+  location.reload();
+}
 <!-- ===== 役に立った？ポップアップ ===== -->
 <div class="modalOverlay" id="reviewOverlay">
   <div class="modal">
